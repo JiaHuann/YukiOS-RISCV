@@ -1,8 +1,8 @@
 #include <mem_config.h>
 
     .section .boot
-    .globl _start
-_start:
+    .globl _entry
+_entry:
     mv t0, a0
     add t0, t0, 1
     slli t0, t0, 16

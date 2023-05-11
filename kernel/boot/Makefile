@@ -1,4 +1,4 @@
-$(CFLAGS) += -I$(ROOT_DIR)/include
+INCL = ../../include
 
 objs := entry.o init.o
 
@@ -7,10 +7,10 @@ objs := entry.o init.o
 build: $(objs)
 
 %.o: %.S
-	$(GCC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -I$(INCL)  -c $<
 
 %.o: %.c
-	$(GCC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -I$(INCL)  -c $<
 
 clean:
 	rm -rf $(RMDOT)

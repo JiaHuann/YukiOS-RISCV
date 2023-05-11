@@ -1,8 +1,9 @@
 ENTRY(_entry)
 
-JUMP_ADDRESS    = 0x80200000
+JUMP_ADDRESS    = 0x80200000;
 
-SECTIONS{
+SECTIONS
+{
         . = JUMP_ADDRESS;
         PROVIDE(kernels = .);
 
@@ -11,9 +12,6 @@ SECTIONS{
         .text : {
                 *(.boot)
                 *(.text .text.*)
-                . = ALIGN(4096);
-                _trampoline = .;
-                *(.tramp)
                 . = ALIGN(4096);
                 PROVIDE(_texte = .);
         }
@@ -39,10 +37,6 @@ SECTIONS{
         PROVIDE(_bsss = .);
         .bss : {
                 *(.bss .bss.* .sbss .sbss*)
-                . = ALIGN(4096);
-                _pgdir = .;
-                *(.pgfir)
-                ASSERT(. - _pgdir == 4096, "ERROR:pgdir not a page size");
                 . = ALIGN(4096);
                 PROVIDE(_bsse = .);
         }

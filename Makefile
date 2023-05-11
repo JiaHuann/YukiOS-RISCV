@@ -24,6 +24,15 @@ clean:
 	done;\
 	rm -rf *.o *.img
 
+
+
+debug:
+	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
+	@echo "-------------------------------------------------------"
+	@${QEMU} ${QFLAGS} -kernel vmkernel.img -s -S &
+	@${GDB} vmkernel.img -q -x ./gdbinit
+
+
 include basic.mk
 
 
