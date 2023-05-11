@@ -13,11 +13,11 @@ CFLAGS 	+= -mcmodel=medany -mno-relax -march=rv64g -mabi=lp64f
 CFLAGS 	+= -I.
 CFLAGS 	+= -nostdlib -fno-stack-protector
 
-LDFLAGS	:= -z -max-page-size=4096
+LDFLAGS	:= -z max-page-size=4096
 
 QEMU	:= qemu-system-riscv64
 QFLAGS := -machine virt -m 128M -nographic -bios default
 
 GDB = gdb-multiarch
 
-RMDOT	:= "*.o *.d *~"
+RMDOT	:= *.o *.d *~
