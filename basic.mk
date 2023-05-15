@@ -16,7 +16,7 @@ CFLAGS 	+= -nostdlib -fno-stack-protector
 LDFLAGS	:= -z max-page-size=4096
 
 QEMU	:= qemu-system-riscv64
-QFLAGS := -machine virt -m 128M -nographic -bios default
+QFLAGS := -machine virt -m 128M -nographic -bios default 
 
 GDB = gdb-multiarch
 

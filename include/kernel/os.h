@@ -1,5 +1,9 @@
 #include <kernel/types.h>
 
+/* uart */
+extern int uart_putc(char ch);
+extern void uart_puts(char *s);
+
 struct context { //上下文寄存器
 	/* ignore x0 */
 	reg_t ra;
