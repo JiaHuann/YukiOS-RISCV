@@ -1,8 +1,22 @@
 #include <kernel/types.h>
 
+typedef void (*taskFunc_ptr)(void);
+
+
 /* uart */
+extern void uart_init();
 extern int uart_putc(char ch);
 extern void uart_puts(char *s);
+
+/* muti-tasks */
+extern int  task_create(taskFunc_ptr);
+extern void task_delay(volatile int count);
+extern void task_yield();
+
+extern void sched_init(void);
+extern void schedule(void);
+extern void os_main(void);
+
 
 struct context { //上下文寄存器
 	/* ignore x0 */

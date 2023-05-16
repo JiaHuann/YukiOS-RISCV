@@ -1,12 +1,6 @@
 #include <kernel/types.h>
 #include <kernel/os.h>
 
-extern void uart_init(void);
-extern void uart_puts(char *s);
-extern void sched_init(void);
-extern void schedule(void);
-
-
 volatile int main_counter = 1000;
 
 static inline void init_hard(uint_64 hart_id)
@@ -30,10 +24,12 @@ static inline void init_hard(uint_64 hart_id)
 void start_kernel(uint_64 hart_id)
 {
     init_hard(hart_id);
-    // uart_init();
-	// uart_puts("Hello, My first OS!\n");
+    uart_init();
+	uart_puts("Hello, My first OS!\n");
     sched_init();
+    os_main();
     schedule();
+    
 
    
 }
