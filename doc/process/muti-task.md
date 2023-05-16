@@ -34,8 +34,15 @@
 ## void os_main(void);
 创建两个示例task。
 
-# 0x03 注意
-1. 内核init后第一次创建任务后必须`手动调用schedule`或task_yield，以从`任务0:start_kernel`（_current=-1）进入到任务1。
+# 0x03 生命周期
+```c
+start_kernel--->sched_init--->os_main/task_create--->schdule/task_yield  <--------------|
+                                                            |                           | 
+                                                           \|/                          |
+                                                        switch_to---> 任务_current ----->
+```
+# 0x04 注意
+1. 内核init后先进行sched_init,第一次创建任务后必须`手动调用schedule`或task_yield，以从`任务0:start_kernel`（_current=-1）进入到任务1。
 2. 由于是协作式多任务，任务本身必须在最后调用schedule或`task_yield`
 
 
