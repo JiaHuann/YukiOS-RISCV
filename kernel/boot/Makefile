@@ -1,6 +1,6 @@
 INCL = ../../include
 
-objs := entry.o context.o ../diver/uart.o ../sched/co_sched.o init.o user.o
+objs := entry.o context.o ../interrupt/trap.o ../diver/uart.o ../sched/co_sched.o init.o user.o 
 
 .PHONY: build clean
 

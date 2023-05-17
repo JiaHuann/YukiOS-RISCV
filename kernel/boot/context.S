@@ -69,35 +69,57 @@
 
 
 .text
-
 # 调用swich_to; 下一个context的栈指针在 a0里(caller args register)
 
 .global switch_to
 .align 4
 switch_to:
+    # 1.保存上下文
 	csrrw	t6, sscratch, t6	//sscratch指向当前运行上下文，
                                 //这里我们用t6寄存器来保存sscratch指向的当前上下文地址。
 	beqz	t6, 1f	//初始化后第一次调用sscratch寄存器的值是0，无法保存现场
 
-	reg_save t6			# 保存现场context
+	reg_save t6			// 保存现场context
 
-	# Save the actual t6 register, which we swapped into
-	# sscratch
-	mv	t5, t6		# 用t5保存当前的上下文save的地址
-	# csrr	t6, sscratch	# 重新读取
-	sw	t6, 240(t5)	# 保存t6寄存器（caller）
+	# 2.单独保存t6（因为我们使用t6指向上下文，被使用过程中似乎无法保存？）
+	mv	t5, t6		
+	// csrr	t6, sscratch	// 重新读取  其实没必要
+	sw	t6, 240(t5)	
 
-1: //特殊处理
-	# 把sscratch指向下一个上下文结构体的地址
-	csrw	sscratch, a0
+1: //跳过保存
+	# 3.sscratch指向新的上下文结构地址
+	csrw	sscratch, a0  
 
-    #t6指向新的上下文结构地址
-	mv	t6, a0
+	mv	t6, a0    #t6指向新的上下文结构地址
 
-    #恢复要切换的上下文结构中的所有寄存器
+    # 4.恢复要切换的上下文结构中的所有寄存器
 	reg_restore t6
 
 	# Do actual context switching.
 	ret
+
+
+.global trap_vector
+.align 4
+trap_vector:
+	# 1.保存上下文
+	csrrw t6, sscratch, t6 //读取当前上下文结构体地址到t6
+	reg_save t6 //保存运行流当前上下文
+	csrw sscratch, t6//恢复sscratch的值
+
+	# 2.调用C写的处理函数
+	csrr a0, sepc	//传入sret后返回到的指令的地址
+	csrr a1, scause	//传入异常类型
+	call trap_handler//调用处理函数
+
+	# 3.根据需要可能在trap_handle结束后修改sepc的跳转（通过a0传返回值）
+	csrw sepc, a0
+
+	# 4.恢复上下文 返回
+	csrr t6, sscratch
+	reg_restore t6
+
+	sret
+
 
 .end

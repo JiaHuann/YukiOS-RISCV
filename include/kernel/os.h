@@ -1,4 +1,5 @@
 #include <kernel/types.h>
+#include <kernel/riscv.h>
 
 typedef void (*taskFunc_ptr)(void);
 
@@ -16,6 +17,11 @@ extern void task_yield();
 extern void sched_init(void);
 extern void schedule(void);
 extern void os_main(void);
+
+/* Trap */
+extern void trap_init();
+extern void trap_test();
+
 
 
 struct context { //上下文寄存器

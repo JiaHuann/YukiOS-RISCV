@@ -17,12 +17,6 @@ static int _top = 0;      // 标识当前创建任务个数
 static int _current = -1; // 标识当前任务上下文
 
 
-static void w_sscratch(reg_t x)
-{
-    asm volatile("csrw sscratch, %0"
-                 :
-                 : "r"(x));
-}
 
 
 void sched_init()
