@@ -36,7 +36,10 @@ Trap处理程序（内部区分中断/异常）
 
 # 0x04 生命周期
 ```
-kernel_start--->trap_init(base/vectored)--->********---->触发Trap----->trap_vector---->trap_handler
+kernel_start--->trap_init(base/vectored)--->**********--------正常运行流
+                                                   | |
+                                                   | |
+                                                   |  --->触发Trap----->trap_vector---->trap_handler
                                                   /|\                                     |
                                                    |                                      |
                                                    |--------------------------------------|
