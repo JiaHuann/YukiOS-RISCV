@@ -1,6 +1,6 @@
 KERNEL	:= kernel
 USER	:= user
-
+BOOT_DIR = $(KERNEL)/boot
 VMLINUX	:= vmlinux.img
 LINKS	:= scripts/vmlinux.ld
 
@@ -23,6 +23,19 @@ clean:
 		$(MAKE) -C $$dir clean; \
 	done;\
 	rm -rf *.o *.img
+
+
+
+debug:
+	make -C $(BOOT_DIR)
+	$(LD) $(LDFLAGS) -T $(LINKS) -o ./kernel/boot/$(VMLINUX) ./kernel/boot/*.o
+
+
+	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
+	@echo "-------------------------------------------------------"
+	@${QEMU} ${QFLAGS} -kernel $(BOOT_DIR)/$(VMLINUX) -s -S &
+	@${GDB} $(BOOT_DIR)/$(VMLINUX) -q -x ./gdbinit
+
 
 include basic.mk
 

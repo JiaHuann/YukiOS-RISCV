@@ -1,15 +1,16 @@
 #ifndef KERNEL_TYPE_H
 #define KERNEL_TYPE_H
 
-typedef unsigned __attribute__((__mode__(QI))) unit_8;
-typedef unsigned __attribute__((__mode__(HI))) unit_16;
-typedef unsigned __attribute__((__mode__(SI))) unit_32;
-typedef unsigned __attribute__((__mode__(DI))) unit_64;
+typedef unsigned int __attribute__((__mode__(QI))) uint_8;
+typedef unsigned int __attribute__((__mode__(HI))) uint_16;
+typedef unsigned int __attribute__((__mode__(SI))) uint_32;
+typedef unsigned int __attribute__((__mode__(DI))) uint_64;
 typedef int __attribute__((__mode__(QI))) int_8;
 typedef int __attribute__((__mode__(HI))) int_16;
 typedef int __attribute__((__mode__(SI))) int_32;
 typedef int __attribute__((__mode__(DI))) int_64;
 
+typedef uint_64 reg_t;
 
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)

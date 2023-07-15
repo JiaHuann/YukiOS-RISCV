@@ -1,16 +1,16 @@
-$(CFLAGS) += -I$(ROOT_DIR)/include
+INCL = ../../include
 
-objs := entry.o init.o
+objs := entry.o context.o ../interrupt/trap.o ../diver/uart.o ../sched/co_sched.o init.o user.o 
 
 .PHONY: build clean
 
 build: $(objs)
 
 %.o: %.S
-	$(GCC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -I$(INCL)  -c $<
 
 %.o: %.c
-	$(GCC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -I$(INCL)  -c $<
 
 clean:
 	rm -rf $(RMDOT)

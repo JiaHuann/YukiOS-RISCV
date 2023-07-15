@@ -13,7 +13,7 @@ static char digits[] = "0123456789abcdef";
 static inline void printInt(i64 xx, int base, bool sign) {
     char buf[30];
     int i;
-    unit_64 x;
+    uint_64 x;
 
     if (sign && (sign = xx < 0)) {
         x = -xx;
@@ -62,9 +62,9 @@ void printf(char *fmt, ...) {
             break;
         case 'x':
             if (l) {
-                printInt(va_arg(ap, unit_64), 16, false);
+                printInt(va_arg(ap, uint_64), 16, false);
             } else {
-                printInt((unit_64) va_arg(ap, u32), 16, false);
+                printInt((uint_64) va_arg(ap, u32), 16, false);
             }
             break;
         case 's':
