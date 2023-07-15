@@ -1,8 +1,9 @@
 ENTRY(_entry)
 
-JUMP_ADDRESS    = 0x80200000
+JUMP_ADDRESS = 0x80200000
 
 SECTIONS{
+        
         . = JUMP_ADDRESS;
         PROVIDE(kernels = .);
 
