@@ -26,4 +26,11 @@
 /* This machine puts UART registers here in physical memory. */
 #define UART0 0x10000000L
 
+/* 10000000 ticks per-second */
+#ifdef QEMU
+#define CLINT_TIMEBASE_FREQ 10000000UL
+#else
+#define CLINT_TIMEBASE_FREQ 4000000UL
+#endif
+
 #endif /* __PLATFORM_H__ */

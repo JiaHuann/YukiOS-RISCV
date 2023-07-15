@@ -6,12 +6,12 @@ OBJCOPY	:= $(TOOLPRE)objcopy
 OBJDUMP := $(TOOLPRE)objdump
 
 #先默认加上-g 最后生成时再去掉
-CFLAGS	:= -Wall -Werror -O -fomit-frame-pointer -g
+CFLAGS	:= -Wall -Werror -O -fomit-frame-pointer -g 
 
 CFLAGS	+= -MD
 CFLAGS 	+= -mcmodel=medany -mno-relax -march=rv64g -mabi=lp64f
 CFLAGS 	+= -I.
-CFLAGS 	+= -nostdlib -fno-stack-protector
+CFLAGS 	+= -nostdlib -fno-stack-protector -fno-builtin
 
 LDFLAGS	:= -z max-page-size=4096
 

@@ -2,19 +2,20 @@
 
 volatile int main_counter = 1000;
 
-static inline void init_hard(uint_64 hart_id)
+static inline void init_hard(uint64_t hart_id)
 {
     asm volatile("mv tp, %0"
                  :
                  : "r"(hart_id & 0x7));
 }
 
-void start_kernel(uint_64 hart_id)
+void start_kernel(uint64_t hart_id)
 {
     init_hard(hart_id);
     uart_init();
     uart_puts("Hello, My first OS!\n");
     trap_init();
+    timer_init();
     sched_init();
     os_main();
     schedule();

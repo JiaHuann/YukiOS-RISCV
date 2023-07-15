@@ -24,7 +24,8 @@ clean:
 	done;\
 	rm -rf *.o *.img
 
-
+%.o : %.c
+	${CC} ${CFLAGS} -c -o $@ $<
 
 debug:
 	make -C $(BOOT_DIR)

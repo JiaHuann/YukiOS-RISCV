@@ -1,16 +1,22 @@
 #include <kernel/types.h>
 #include <kernel/riscv.h>
+#include <stddef.h>
+#include <stdarg.h>
+#include <kernel/platform.h>
 
 typedef void (*taskFunc_ptr)(void);
-
 
 /* uart */
 extern void uart_init();
 extern int uart_putc(char ch);
 extern void uart_puts(char *s);
 
+/* print*/
+extern int printf(const char* s, ...);
+extern void panic(char *s);
+
 /* muti-tasks */
-extern int  task_create(taskFunc_ptr);
+extern int task_create(taskFunc_ptr);
 extern void task_delay(volatile int count);
 extern void task_yield();
 
@@ -22,9 +28,23 @@ extern void os_main(void);
 extern void trap_init();
 extern void trap_test();
 
+/*Lock*/
+extern int spin_lock(void);
+extern int spin_unlock(void);
 
+/*timer*/
+struct timer
+{
+	void (*func)(void *arg);
+	void *arg;
+	uint32_t timeout_tick;
+};
 
-struct context { //上下文寄存器
+extern struct timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout);
+extern void timer_delete(struct timer *timer);
+extern void timer_init(void);
+struct context
+{ // 上下文寄存器
 	/* ignore x0 */
 	reg_t ra;
 	reg_t sp;
@@ -57,4 +77,6 @@ struct context { //上下文寄存器
 	reg_t t4;
 	reg_t t5;
 	reg_t t6;
+
+	reg_t pc;
 };

@@ -1,16 +1,16 @@
 #ifndef KERNEL_TYPE_H
 #define KERNEL_TYPE_H
 
-typedef unsigned int __attribute__((__mode__(QI))) uint_8;
-typedef unsigned int __attribute__((__mode__(HI))) uint_16;
-typedef unsigned int __attribute__((__mode__(SI))) uint_32;
-typedef unsigned int __attribute__((__mode__(DI))) uint_64;
+typedef unsigned int __attribute__((__mode__(QI))) uint8_t;
+typedef unsigned int __attribute__((__mode__(HI))) uint16_t;
+typedef unsigned int __attribute__((__mode__(SI))) uint32_t;
+typedef unsigned int __attribute__((__mode__(DI))) uint64_t;
 typedef int __attribute__((__mode__(QI))) int_8;
 typedef int __attribute__((__mode__(HI))) int_16;
 typedef int __attribute__((__mode__(SI))) int_32;
 typedef int __attribute__((__mode__(DI))) int_64;
 
-typedef uint_64 reg_t;
+typedef uint64_t reg_t;
 
 typedef __builtin_va_list va_list;
 #define va_start(ap, param) __builtin_va_start(ap, param)
@@ -20,4 +20,3 @@ typedef __builtin_va_list va_list;
 #include <general/types.h>
 
 #endif
-
