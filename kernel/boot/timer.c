@@ -38,8 +38,10 @@ void timer_load(uint64_t interval)
 
 void timer_init()
 {
-	struct timer *t = &(timer_list[0]);
 	for (int i = 0; i < MAX_TIMER; i++) {
+		
+		
+		struct timer *t = &(timer_list[0]);
 		t->func = NULL; /* use .func to flag if the item is used */
 		t->arg = NULL;
 		t++;

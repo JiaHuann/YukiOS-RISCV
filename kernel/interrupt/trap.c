@@ -33,9 +33,11 @@ reg_t trap_handler(reg_t epc, reg_t cause)
 
 			//	S态不能用这种方式触发SIP
 			//	我们直接用写SIP的方式触发
+
+			//好像不能用，下次再测试吧。
 			w_sip(r_sip() & ~SIP_SSIP);
 
-			schedule();
+			//schedule();
 
 			break;
 		case 3:

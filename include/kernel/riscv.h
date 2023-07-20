@@ -101,7 +101,7 @@ static inline reg_t r_stval()
 static inline reg_t r_mtime()
 {
 	reg_t x;
-	asm volatile("csrr %0, 0x0C01" : "=r" (x) );
+	asm volatile("csrr %0, 0x000C01" : "=r" (x) );
 	return x;
 }
 
