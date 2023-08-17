@@ -6,6 +6,7 @@ make debug
 # todo
 
 - [x] 链接脚本vmlinux.ld
+- [x] 简单启动asm,内核栈用户栈建立
 - [x] 添加gdb-multiarch debug
 - [x] uart初始化
 - [x] schedule初始化，上下文切换
