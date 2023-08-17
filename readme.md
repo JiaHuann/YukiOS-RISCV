@@ -15,11 +15,11 @@ make debug
 - [x] 简单定时器抢占调度
 - [x] 简单系统调用
 - [x] 简单分页虚拟内存 (Not Merged)
-- [ ] 简单用户进程(`S-mode`->`U-mode`)
-- [ ] virtio初始化,io初始化
-- [ ] FAT文件系统移植
+- [x] 简单用户进程(`S-mode`->`U-mode`)
+- [ ] virtio初始化,io初始化 (listed)
+- [ ] FAT文件系统移植 (listed)
 - [ ] VFS抽象层
-- [ ] 二进制加载器
-- [ ] 简单shell
-- [ ] 添加更多系统调用
+- [ ] 二进制加载器 (listed)
+- [ ] 简单shell (listed)
+- [ ] 添加更多系统调用 (listed)
 
