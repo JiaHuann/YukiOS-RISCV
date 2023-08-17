@@ -2,6 +2,12 @@
     "files.associations": {
         "os.h": "c",
         "types.h": "c",
-        "riscv.h": "c"
+        "riscv.h": "c",
+        "platform.h": "c",
+        "os_def.h": "c",
+        "syscall.h": "c",
+        "usyscall.h": "c",
+        "mem_config.h": "c",
+        "string.h": "c"
     }
 }

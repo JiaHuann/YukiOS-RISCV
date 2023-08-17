@@ -16,6 +16,7 @@ void sched_init()
 {
     w_sscratch(0);
 
+
     /* enable machine-mode software interrupts. */
 	w_sie(r_sie() | SIE_SSIE);
 }

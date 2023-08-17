@@ -1,16 +1,16 @@
-$(CFLAGS) += -I$(ROOT_DIR)/include
+# INCL = ../../include
 
-objs := console.o printf.o
+objs := printf.o console.o uart.o 
 
 .PHONY: build clean
 
 build: $(objs)
 
 %.o: %.S
-	$(GCC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 %.o: %.c
-	$(GCC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -rf $(RMDOT)

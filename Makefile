@@ -7,35 +7,28 @@ LINKS	:= scripts/vmlinux.ld
 ROOT_DIR := $(shell realpath .)
 
 export $(ROOT_DIR)
+OBJS := $(KERNEL)/*/*.o
 
-.PYONY: build clean
+debug: $(KERNEL)
 
-OBJS = $(KERNEL)/*/*.o
+	$(LD) $(LDFLAGS) -T $(LINKS) -o $(VMLINUX) $(OBJS)
+	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
+	@echo "-------------------------------------------------------"
+	@${QEMU} ${QFLAGS} -kernel $(VMLINUX) -s -S &
+	@${GDB} $(VMLINUX) -q -x ./gdbinit
 
-build: $(KERNEL)
-	$(LD) $(LDFLAGS) -T $(LINKS) -o $(vmlinux) $(OBJS)
-
-$(KERNEL):
+.PHONY: .FORCE
+$(KERNEL): .FORCE
 	$(MAKE) build -C $@
-
-clean:
-	for dir in $(KERNEL), $(USER); do \
-		$(MAKE) -C $$dir clean; \
-	done;\
-	rm -rf *.o *.img
 
 %.o : %.c
 	${CC} ${CFLAGS} -c -o $@ $<
 
-debug:
-	make -C $(BOOT_DIR)
-	$(LD) $(LDFLAGS) -T $(LINKS) -o ./kernel/boot/$(VMLINUX) ./kernel/boot/*.o
-
-
-	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
-	@echo "-------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel $(BOOT_DIR)/$(VMLINUX) -s -S &
-	@${GDB} $(BOOT_DIR)/$(VMLINUX) -q -x ./gdbinit
+clean:
+	for dir in $(KERNEL); do \
+		$(MAKE) -C $$dir clean; \
+	done;\
+	rm -rf *.o *.img
 
 
 include basic.mk

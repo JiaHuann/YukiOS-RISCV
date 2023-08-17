@@ -1,6 +1,6 @@
 # INCL = ../../include
 
-objs := entry.o context.o init.o
+objs := co_sched.o
 
 .PHONY: build clean
 

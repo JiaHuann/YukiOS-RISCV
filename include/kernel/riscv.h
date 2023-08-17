@@ -14,6 +14,13 @@
 
 #define SSTATUS_SIE (1 << 1)
 
+//读hartid，当前cpu
+static inline reg_t r_mhartid()
+{
+	reg_t x;
+	asm volatile("csrr %0, mhartid" : "=r" (x) );
+	return x;
+}
 
 static inline reg_t r_sstatus()
 {

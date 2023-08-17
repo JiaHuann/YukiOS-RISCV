@@ -1,6 +1,6 @@
 # INCL = ../../include
 
-objs := entry.o context.o init.o
+objs := timer.o trap.o
 
 .PHONY: build clean
 

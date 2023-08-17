@@ -70,6 +70,7 @@ ld t3, 216(\base)
 ld t4, 224(\base)
 ld t5, 232(\base)
 ld t6, 240(\base)
+
 .endm
 
 # Something to note about save/restore:
@@ -85,9 +86,9 @@ ld t6, 240(\base)
 .globl trap_vector
 # the trap vector base address must always be aligned on a 4-byte boundary
 .align 4
-trap_vector:
+trap_vector:     #使用tx寄存器做基址保存上下文别忘了保存tx本身
 	# save context(registers).
-	csrrw	t6, sscratch, t6	# swap t6 and mscratch
+	csrrw	t6, sscratch, t6	# swap t6 and sscratch
 	reg_save t6
 
 	# Save the actual t6 register, which we swapped into
@@ -96,19 +97,18 @@ trap_vector:
 	csrr	t6, sscratch	# read t6 back from mscratch
 	sd	t6,240(t5)	# save t6 with t5 as base
 
-	# save mepc to context of current task
+	# 把当前进程pc(sepc)寄存器保存到上下文结构中，如果没有这两行，定时器中断+调度下次回到本进程会从头运行。
 	csrr	a0, sepc
 	sd	a0, 248(t5)
-
-	# Restore the context pointer into mscratch
+	# Restore the context pointer into sscratch
 	csrw	sscratch, t5
 
 	# call the C trap handler in trap.c
 	csrr	a0, sepc
 	csrr	a1, scause
-	csrr	a2, sscratch
+	csrr	a2, sscratch	#拿到触发trap前的上下文
 	call	trap_handler
-
+	
 	# trap_handler will return the return address via a0.
 	csrw	sepc, a0
 
@@ -124,10 +124,10 @@ trap_vector:
 .globl switch_to
 .align 4
 switch_to:
-	# switch mscratch to point to the context of the next task
+	# switch sscratch to point to the context of the next task
 	csrw	sscratch, a0
 
-	# set mepc to the pc of the next task
+	# set sepc to the pc of the next task
 	ld	a1, 248(a0)
 	csrw	sepc, a1
 	

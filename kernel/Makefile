@@ -1,7 +1,7 @@
 
-SUBSYSDIR := $(shell find . -mindepth 1 -maxdepth 1 -type d -not -name '.*' -exec basename {} \;)
+SUBSYSDIR := $(shell ls -d */)
 
-.PHONY: build clean $(modules)
+.PHONY: build clean $(SUBSYSDIR)
 
 build: $(SUBSYSDIR)
 
