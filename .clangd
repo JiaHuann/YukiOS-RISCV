@@ -1,6 +1,0 @@
-CompileFlags:
-  Add:
-    - "-I/home/zhdi/os_competition/include"
-    - "-nostdinc"
-    - "-nostdinc++"
-    - "-xc"
