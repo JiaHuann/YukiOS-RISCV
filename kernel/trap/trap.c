@@ -8,6 +8,7 @@ void trap_init()
 {
 	/*在S-mode设置中断向量基地址 */
 	w_stvec((reg_t)trap_vector);
+	printf("[init] Trap&Exception handle init success!\n");
 }
 
 reg_t trap_handler(reg_t epc, reg_t cause, struct context *ctx)
@@ -44,7 +45,7 @@ reg_t trap_handler(reg_t epc, reg_t cause, struct context *ctx)
 			uart_puts("machine software interruption!\n");
 			break;
 		case 5:
-			uart_puts("timer interruption!\n");
+			uart_puts("[trap] __timer interruption__\n");
 			timer_handler();
 			break;
 		case 7:
@@ -64,7 +65,7 @@ reg_t trap_handler(reg_t epc, reg_t cause, struct context *ctx)
 		switch (cause_code)
 		{
 			case 8:
-				printf("Enviroment call from USER");
+				printf("[syscall] Enviroment call from USER\n");
 				do_syscall(ctx);
 				//panic("stop");
 				return_pc += 4; //sepc存放的是ecall指令本身地址，必须特殊处理

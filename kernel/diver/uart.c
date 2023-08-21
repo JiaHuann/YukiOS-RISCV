@@ -84,6 +84,7 @@ void uart_puts(char *s)
 
 void uart_init()
 {
+	uart_puts("[init] UART init success!\n");
 	/* disable interrupts. */
 	uart_write_reg(IER, 0x00);
 

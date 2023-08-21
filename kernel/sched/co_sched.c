@@ -19,10 +19,12 @@ void sched_init()
 
     /* enable machine-mode software interrupts. */
 	w_sie(r_sie() | SIE_SSIE);
+    printf("[init] schedule init success!\n");
 }
 
 void schedule() // 简单膜轮转协作式调度
 {
+    printf("[schedule] __task switch__\n");
     if (_top <= 0)
     {
         uart_puts("No task has been created");

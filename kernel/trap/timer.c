@@ -55,6 +55,7 @@ void timer_init()
 
 	/* enable machine-mode timer interrupts. */
 	w_sie(r_sie() | SIE_STIE);
+	printf("[init] Timer init success!\n");
 }
 
 struct timer *timer_create(void (*handler)(void *arg), void *arg, uint32_t timeout)

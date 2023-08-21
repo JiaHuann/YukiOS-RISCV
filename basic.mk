@@ -17,8 +17,8 @@ LDFLAGS	:= -z max-page-size=4096
 
 QEMU	:= qemu-system-riscv64
 QFLAGS := -machine virt -m 128M -nographic -bios default \
-		-drive file=disk.img,if=none,format=raw,id=x0 \
-		-device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+		# -drive file=disk.img,if=none,format=raw,id=x0 \
+		# -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 GDB = gdb-multiarch
 
 RMDOT	:= *.o *.d *~
