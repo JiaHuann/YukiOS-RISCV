@@ -12,7 +12,7 @@ static inline void init_hard(uint64_t hart_id)
 void start_kernel(uint64_t hart_id)
 {
     init_hard(hart_id);
-    uart_puts("[init] HART init\n");
+    uart_puts("[init] HART init succsess!\n");
     task_delay(5000);
     uart_init();
     task_delay(5000);
@@ -22,7 +22,7 @@ void start_kernel(uint64_t hart_id)
     task_delay(5000);
     sched_init();
     task_delay(5000);
-    uart_puts("[init] Virtual Page Memory init\n");
+    uart_puts("[init] Virtual Page Memory init succsess!\n");
     task_delay(5000);
     os_main();
     task_delay(10000);

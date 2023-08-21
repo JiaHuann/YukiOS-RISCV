@@ -1,7 +1,7 @@
 #include "kernel/os.h"
 
 reg_t __get_sstatus(reg_t* SYSCALL_id){
-    printf("syscall--->get_sstatus arg0:0x%x\n",SYSCALL_id);
+    printf("[S-mode]syscall--->get_sstatus\n[S-mode]ecall from .text = 0x%x\n",SYSCALL_id);
     reg_t content = r_sstatus();
     return content;
 }

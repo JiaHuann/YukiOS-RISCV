@@ -11,7 +11,7 @@ void user_task0(void)
 		uart_puts("Task 0: Running...\n");
 		reg_t ret = -1;
 		ret = get_sstatus(&ret);
-		printf("sstatus is %d",ret);
+		printf("[U-mode]sstatus is %x\n\n",ret);
 
 		task_delay(DELAY);
 	}
